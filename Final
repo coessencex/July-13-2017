@@ -1,0 +1,1242 @@
+using System;
+using System.CodeDom;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace PAssign01
+{
+    class Program
+    {
+
+        static void Main(string[] args)
+        {
+
+            StackLinkedList<String> mkiko = new StackLinkedList<string>();
+            var b = DelimeterMatching("(g]}");
+            Console.WriteLine(b);
+            //{
+            //bool checker = true;
+            //bool checker1 = true;
+            //ILinkedList<Person> x = new DoublyLinkedList<Person>();
+            //x.AddToHead(new Node<Person>(PersonFactory.CreatePerson("Twisted", "Nematic")));
+            //x.AddToHead(new Node<Person>(PersonFactory.CreatePerson("Vertical", "Alignment")));
+            //x.AddToHead(new Node<Person>(PersonFactory.CreatePerson("In", "Plane")));
+            //x.AddToHead(new Node<Person>(PersonFactory.CreatePerson("Plane", "Line")));
+            //x.AddToHead(new Node<Person>(PersonFactory.CreatePerson("Advanced", "Hyper")));
+            //x.AddToHead(new Node<Person>(PersonFactory.CreatePerson("Liquid", "Crystal")));
+            //x.AddToHead(new Node<Person>(PersonFactory.CreatePerson("Plasma", "Display")));
+            //x.AddToHead(new Node<Person>(PersonFactory.CreatePerson("Light", "Emitting")));
+            //Console.Write("Last Names : ");
+            //x.Print();
+            //var tal = new LinkListSorter();
+            //var ong = tal.SortDescending(x);
+            //Console.Write("\n[Person Set] Sort Descend(non Ordinal) : ");
+            //ong.Print();
+            //while (checker1){
+            //    bool loop = false;
+            //while (checker)
+            //{
+            //    Console.Write("\n[Person Set] Move Tail to Left (int) : ");
+            //    string linedfp1 = Console.ReadLine();
+            //    int valuedfp1;
+            //    var zzz = int.TryParse(linedfp1, out valuedfp1);
+            //    if (zzz)
+            //    {
+            //        Console.WriteLine("Moving Tail [{0}] steps to the Left", valuedfp1);
+            //        Console.Write("\nNew Doubly set #1");
+            //        x.MoveTailToLeft(valuedfp1);
+            //        x.Print();
+            //        Console.WriteLine();
+            //        checker = false;
+            //        loop = true;
+            //    }
+
+            //}
+            //    while (loop)
+            //    {
+            //        Console.Write("Move Tail To Left Again?(Y/N) : ");
+            //        string checkerz = Console.ReadLine();
+            //        if ((string.Equals(checkerz, "n", StringComparison.OrdinalIgnoreCase)) ||
+            //            (string.Equals(checkerz, "no", StringComparison.OrdinalIgnoreCase)))
+            //        {
+            //            loop = false;
+            //            checker1 = false;
+            //        }
+            //        if ((string.Equals(checkerz, "y", StringComparison.OrdinalIgnoreCase)) ||
+            //            (string.Equals(checkerz, "yes", StringComparison.OrdinalIgnoreCase)))
+            //        {
+            //            checker = true;
+            //            loop = false;
+            //        }
+            //    }
+            //    Console.WriteLine("Thanks!");
+            //}
+
+
+            //ILinkedList<String> x = new DoublyLinkedList<string>();
+            //x.AddToHead(new Node<string>("A"));
+            //x.AddToHead(new Node<string>("B"));
+            //x.AddToHead(new Node<string>("C"));
+            //x.AddToHead(new Node<string>("D"));
+            //x.AddToHead(new Node<string>("E"));
+            //x.AddToHead(new Node<string>("F"));
+            //x.AddToHead(new Node<string>("G"));
+            //x.AddToTail(new Node<string>("Z"));
+            //x.Print();
+            //Console.WriteLine("Used [Delete from Head] POP");
+            //var a = x.DeleteFromHead();
+            //Console.WriteLine(a);
+            //Console.WriteLine("Used [Delete from Head] POP");
+            //var b = x.DeleteFromHead();
+            //Console.WriteLine(b);
+            //x.Print();
+            //}
+
+            //IStack<String> x = new StackLinkedList<string>();
+            //x.Push("E");
+            //x.Push("D");
+            //x.Push("C");
+            //x.Push("A");
+            //x.Push("B");
+            //Console.Write("Peek found : ");
+            //Console.WriteLine(x.Peek());
+            //Console.Write("Is Stack Empty : ");
+            //Console.WriteLine(x.IsEmpty);
+            //Console.WriteLine("Stack's Elements : ");
+            //x.Print();
+            Console.ReadLine();
+        }
+
+        public interface ILinkedList<T>
+        {
+            Node<T> Head { get; set; }
+            Node<T> Tail { get; set; }
+            int Count { get; set; }
+
+            void AddToHead(Node<T> node);
+            void AddToTail(Node<T> node);
+            T DeleteFromHead();
+            void DeleteFromTail();
+            bool DeleteFromPosition(int position);
+            bool Search(T Data);
+            void SwapHeadAndTail();
+            void MoveHeadToRight(int moves);
+            void MoveHeadToLeft(int moves);
+            void MoveTailToRight(int moves);
+            void MoveTailToLeft(int moves);
+            //void MoveTailToRight(int moves);
+            //void MoveTailToLeft(int moves);
+            bool Delete(T data);
+            void Print();
+
+
+        }
+
+        public class SinglyLinkedList<T> 
+        {
+            public Node<T> Head { get; set; }
+            public Node<T> Tail { get; set; }
+            public int Count { get; set; }
+
+            public SinglyLinkedList()
+            {
+                this.Head = null;
+                this.Tail = null;
+                this.Count = -1;
+            }
+
+            public void AddToHead(Node<T> node)
+            {
+                if (Head != null)
+                {
+                    Head.Prev = node;
+                    node.Next = Head;
+                    Head = node;
+                }
+                else
+                {
+                    Head = node;
+                    Tail = Head;
+                }
+                Count++;
+            }
+            public void AddToTail(Node<T> node)
+            {
+                if (Tail != null)
+                {
+                    //node.Prev = node;
+                    //node.Next = Tail;
+                    //Tail = node;
+
+                    Tail.Next = node;
+                    node.Prev = Tail;
+                    Tail = node;
+                    Count++;
+                }
+                else
+                {
+                    Tail = node;
+                    Head = Tail;
+                    Count++;
+                }
+            }
+            public void DeleteFromHead() //O(c)
+            {
+                if (Head == Tail)
+                {
+                    Tail = null;
+                }
+                var temp = Head;
+                Head = Head.Next;
+                temp = null;
+            }
+            public void DeleteFromTail() //O(n)
+            {
+                if (Head == null)
+                {
+                    Head = null;
+                    Tail = Head;
+                }
+
+                var tmp = Head;
+                while (tmp.Next != Tail)
+                {
+                    tmp = tmp.Next;
+                }
+                Tail = tmp;
+                tmp.Next = null;
+            }
+            public bool Delete(T data)
+            {
+                var tmp = Head;
+                while (tmp != null)
+                {
+                    if (tmp.Data.Equals(data))
+                    {
+                        if (tmp == Head)
+                        {
+                            DeleteFromHead();
+                            Count--;
+                        }
+                        else if (tmp == Tail)
+                        {
+                            DeleteFromTail();
+                            Count--;
+                        }
+                        else
+                        {
+                            var newprev = tmp.Prev;
+                            var newnext = tmp.Next;
+                            newprev.Next = tmp.Next;
+                            newnext.Prev = tmp.Prev;
+                            Count--;
+                        }
+                        return true;
+                    }
+                    tmp = tmp.Next;
+                }
+                return false;
+            }
+            public bool DeleteFromPosition(int position)
+            {
+                Node<T> tmp = Head;
+                if (position > Count)
+                {
+                    return true;
+                }
+                if (position < 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    int tmpPos = position;
+                    int index = 0;
+                    while (index != tmpPos)
+                    {
+                        tmp = tmp.Next;
+                        index++;
+                    }
+                    SLGeneralDelete(tmp);
+                    return false;
+                }
+
+            }
+            public bool Search(T data) //D
+            {
+                var tmp = Head; //A
+                while (tmp != null)
+                {
+                    if (Equals(tmp.Data, data))
+                    {
+                        return true;
+                    }
+                    tmp = tmp.Next;
+                }
+                return false;
+            }
+            public void SwapHeadAndTail()
+            {
+                var tempHead = Head.Data;
+                Head.Data = Tail.Data;
+                Tail.Data = tempHead;
+            }
+            public void MoveHeadToRight(int moves)
+            {
+                if (moves > Count || moves < 0)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+
+                var tmp = Head;
+                int index = 0;
+                while (index != moves)
+                {
+                    tmp = tmp.Next;
+                    index++;
+                }
+                SLGeneralHeadSwap(tmp);
+            }
+            public void MoveHeadToLeft(int moves)
+            {
+                moves = moves * (-1);
+                if (moves > Count || moves < 0)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+
+                var tmp = Head;
+                var tmp2 = Head;
+                int index = 0;
+                while (index != moves)
+                {
+                    tmp = tmp.Next;
+                    index++;
+                }
+                SLGeneralHeadSwap(tmp);
+            }
+            public void MoveTailToRight(int moves)
+            {
+                moves = (moves + 1 - Count);
+                if (moves > Count || moves < 0)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+                var tmp = Head;
+                int index = 0;
+                while (index != moves)
+                {
+                    tmp = tmp.Next;
+                    index++;
+                }
+                SLGeneralTailSwap(tmp);
+
+            }
+            public void MoveTailToLeft(int moves)
+            {
+                moves = (Count - moves + 1);
+                if (moves > Count || moves < 0)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+                var tmp = Head;
+                int index = 0;
+                while (index != moves)
+                {
+                    tmp = tmp.Next;
+                    index++;
+                }
+                SLGeneralTailSwap(tmp);
+
+            }
+            public void Print()
+            {
+                var temp = Head;
+                while (temp != null)
+                {
+                    Console.Write(" [" + temp.Data + "]");
+                    temp = temp.Next;
+                }
+                Console.WriteLine();
+            }
+
+            public void SLGeneralDelete(Node<T> node)
+            {
+                if (node == Head)
+                {
+                    DeleteFromHead();
+                    Count--;
+                }
+                if (node == Tail)
+                {
+                    DeleteFromTail();
+                    Count--;
+                }
+                else
+                {
+                    var newprev = node.Prev;
+                    var newnext = node.Next;
+                    newprev.Next = node.Next;
+                    newnext.Prev = node.Prev;
+                    Count--;
+                }
+            }
+
+
+            public void SLGeneralHeadSwap(Node<T> node)
+            {
+                var tempHead = Head.Data;
+                Head.Data = node.Data;
+                node.Data = tempHead;
+            }
+            public void SLGeneralTailSwap(Node<T> node)
+            {
+                var tempTail = Tail.Data;
+                Tail.Data = node.Data;
+                node.Data = tempTail;
+            }
+        }
+
+        public class DoublyLinkedList<T> : ILinkedList<T>
+        {
+            public Node<T> Head { get; set; }
+            public Node<T> Tail { get; set; }
+            public int Count { get; set; }
+            public DoublyLinkedList()
+            {
+                this.Head = null;
+                this.Tail = null;
+                this.Count = -1;
+            }
+            public void AddToHead(Node<T> node)
+            {
+                if (Head != null)
+                {
+                    Head.Prev = node;
+                    node.Next = Head;
+                    Head = node;
+                    Count++;
+                }
+                else
+                {
+                    Head = node;
+                    Tail = Head;
+                    Count++;
+
+                }
+
+            }
+            public void AddToTail(Node<T> node)
+            {
+                if (Head != null)
+                {
+                    node.Prev = Tail;
+                    Tail.Next = node;
+                    Tail = node;
+                    Count++;
+                }
+                else
+                {
+                    Tail = node;
+                    Head = Tail;
+                    Count++;
+                }
+
+            }
+            public T DeleteFromHead()
+            {
+                //sir
+                var element = Head.Data;
+                if (Head == Tail)
+                {
+                    Head = Tail = null;
+                    return element;
+                }
+                else
+                {
+                    Head = Head.Next;
+                    Head.Prev = null;
+                    return element;
+                }
+
+            }
+            public void DeleteFromTail()
+            {
+                Tail = Tail.Prev;
+                Tail.Next = null;
+            }
+            public bool Delete(T data)
+            {
+                var tmp = Head;
+                while (tmp != null)
+                {
+                    if (tmp.Data.Equals(data))
+                    {
+                        if (tmp == Head)
+                        {
+                            DeleteFromHead();
+                            Count--;
+                        }
+                        else if (tmp == Tail)
+                        {
+                            DeleteFromTail();
+                            Count--;
+                        }
+                        else
+                        {
+                            var newprev = tmp.Prev;
+                            var newnext = tmp.Next;
+                            newprev.Next = tmp.Next;
+                            newnext.Prev = tmp.Prev;
+                            Count--;
+                        }
+                        return true;
+                    }
+                    tmp = tmp.Next;
+                }
+                return false;
+            }
+            public bool DeleteFromPosition(int position)
+            {
+                var tmp = Head;
+                if (position > Count)
+                {
+                    return true;
+                }
+                if (position < 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    int tmpPos = position;
+                    int index = 0;
+                    while (index != tmpPos)
+                    {
+                        tmp = tmp.Next;
+                        index++;
+                    }
+                    DLGeneralDelete(tmp);
+                    return false;
+                }
+
+            }
+            public bool Search(T data)  //D
+            {
+                var tmp = Head;         //A
+                while (tmp != null)
+                {
+                    if (Equals(tmp.Data, data))
+                    {
+                        return true;
+                    }
+                    tmp = tmp.Next;
+                }
+                return false;
+            }
+            public void SwapHeadAndTail()
+            {
+                //SHALLOW
+                //var tempHead = Head.Data;
+                //Head.Data = Tail.Data;
+                //Tail.Data = tempHead;
+
+                //DEEP
+                var head = Head;
+                var tail = Tail;
+                //there
+                if (Head == Tail) return;
+                if (Count == 2)
+                {
+                    Head = tail;
+                    Tail = head;
+                    Head.Next = Tail;
+                    Tail.Prev = Head;
+                    return;
+                }
+
+
+                //set the Next of Tail to the node next to Head
+                Tail.Next = Head.Next;
+                //set the Prev of 2nd node from Head to Tail
+                Head.Next.Prev = Tail;
+
+                //set the Head to the Tail
+                Head = Tail;
+
+                // set the old Head's Next to null since it will become the Tail
+                head.Next = null;
+                //set the Next of the node before the old tail to old head
+                head.Prev = tail.Prev;
+                tail.Prev.Next = head;
+
+                //set Prev of Tail to null since it will become the Head
+                Tail.Prev = null;
+                Tail = head;
+            }
+            public void MoveHeadToRight(int moves)
+            {
+                if (moves > Count || moves < 0)
+                {
+                    throw new IndexOutOfRangeException("Move Count error");
+                }
+                var secondNode = Head.Next;
+                if (moves == Count)
+                {
+                    Tail.Next = Head;
+                    Head.Prev = Tail;
+                    Head.Next = null;
+
+                    Tail = Head;
+                    Head = secondNode;
+                    Head.Prev = null;
+                    return;
+                }
+
+                var head = Head;
+                int position = 0;
+                Head = head.Next;           //oldhead.next = NEW HEAD
+                Head.Prev = null;
+                var toSwapNode = Head;
+                while (position != moves - 1)     //6 nodes, can 5 moves          3 moves; 
+                {
+                    toSwapNode = toSwapNode.Next;
+                    position++;
+                }                               //2 = 2     E
+                head.Prev = null;
+                head.Next = null;
+                head.Next = toSwapNode.Next;            //oldhead.next = 
+                toSwapNode.Next = head;
+            }
+            public void MoveHeadToLeft(int moves)
+            {
+                moves = moves * (-1);
+                if (moves > Count || moves < 0)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+
+                var tmp = Head;
+                var tmp2 = Head;
+                int index = 0;
+                while (index != moves)
+                {
+                    tmp = tmp.Next;
+                    index++;
+                }
+                DLGeneralHeadSwap(tmp);
+            }
+            public void MoveTailToRight(int moves)
+            {
+                moves = (moves + 1 - Count);
+                if (moves > Count || moves < 0)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+                var tmp = Head;
+                int index = 0;
+                while (index != moves)
+                {
+                    tmp = tmp.Next;
+                    index++;
+                }
+                DLGeneralTailSwap(tmp);
+
+            }
+            public void MoveTailToLeft(int moves)
+            {
+                if (moves > Count || moves < 0)
+                {
+                    throw new IndexOutOfRangeException("Move Count error");
+                }
+                var secondNode = Head.Next;
+                if (moves == Count)
+                {
+                    Tail.Next = Head;
+                    Head.Prev = Tail;
+                    Head.Next = null;
+
+                    Tail = Head;
+                    Head = secondNode;
+                    Head.Prev = null;
+                    return;
+                }
+
+                var tail = Tail;
+                int position = 0;
+                Tail = tail.Prev;
+                var toSwapNode = Tail;
+                while (position != moves - 1)
+                {
+                    toSwapNode = toSwapNode.Prev;
+                    position++;
+                }
+                Tail.Next = null;       //IMPORTANT, NULL OR LOOP 
+                var container = toSwapNode.Prev;
+                tail.Prev = container;                 //oldhead.next = 
+                toSwapNode.Prev = tail;
+                container.Next = tail;
+                tail.Next = toSwapNode;
+
+
+            }
+
+            public void Print()
+            {
+                var temp = Head;
+                while (temp != null)
+                {
+                    Console.Write(" [" + temp.Data + "]");
+                    temp = temp.Next;
+                }
+                Console.WriteLine();
+            }
+            public void DLGeneralDelete(Node<T> node)
+            {
+                if (node == Head)
+                {
+                    DeleteFromHead();
+                    Count--;
+                }
+                else if (node == Tail)
+                {
+                    DeleteFromTail();
+                    Count--;
+                }
+                else
+                {
+                    var newprev = node.Prev;
+                    var newnext = node.Next;
+                    newprev.Next = node.Next;
+                    newnext.Prev = node.Prev;
+                    Count--;
+                }
+            }
+            public void DLGeneralHeadSwap(Node<T> node)
+            {
+                var tempHead = Head.Data;
+                Head.Data = node.Data;
+                node.Data = tempHead;
+            }
+            public void DLGeneralTailSwap(Node<T> node)
+            {
+                var tempTail = Tail.Data;
+                Tail.Data = node.Data;
+                node.Data = tempTail;
+            }
+
+        }
+
+        public class CircularLinkedList<T>
+        {
+            public Node<T> Head { get; set; }
+            public Node<T> Tail { get; set; }
+            public int Count { get; set; }
+            public CircularLinkedList()
+            {
+                this.Head = null;
+                this.Tail = null;
+                this.Count = -1;
+            }
+            public void AddToHead(Node<T> node)
+            {
+                if (Head != null)
+                {
+                    Head.Prev = node;
+                    node.Next = Head;
+                    Head = node;
+                    Head.Prev = Tail;
+                    Tail.Next = Head;
+
+                }
+                else
+                {
+                    Head = node;
+                    Tail = Head;
+                    Head.Prev = Tail;
+                }
+                Count++;
+
+            }
+            public void AddToTail(Node<T> node)
+            {
+                if (Tail != null)
+                {
+                    Tail.Next = node;
+                    node.Prev = Tail;
+                    Tail = node;
+                    Tail.Next = Head;
+                    Count++;
+                }
+                else
+                {
+                    Tail = node;
+                    Head = Tail;
+                    Count++;
+                }
+
+            }
+            public void DeleteFromHead()
+            {
+
+                Head = Head.Next;
+                Head.Prev = null;
+
+
+            }
+            public void DeleteFromTail()
+            {
+                Tail = Tail.Prev;
+                Tail.Next = null;
+
+            }
+            public bool Delete(T data)
+            {
+                var tmp = Head;
+                while (tmp != null)
+                {
+                    if (tmp.Data.Equals(data))
+                    {
+                        if (tmp == Head)
+                        {
+                            DeleteFromHead();
+                            Count--;
+                        }
+                        else if (tmp == Tail)
+                        {
+                            DeleteFromTail();
+                            Count--;
+                        }
+                        else
+                        {
+                            var newprev = tmp.Prev;
+                            var newnext = tmp.Next;
+                            newprev.Next = tmp.Next;
+                            newnext.Prev = tmp.Prev;
+                            Count--;
+                        }
+                        return true;
+                    }
+                    tmp = tmp.Next;
+                }
+                return false;
+            }
+            public bool DeleteFromPosition(int position)
+            {
+                var tmp = Head;
+                if (position > Count)
+                {
+                    return true;
+                }
+                if (position < 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    int tmpPos = position;
+                    int index = 0;
+                    while (index != tmpPos)
+                    {
+                        tmp = tmp.Next;
+                        index++;
+                    }
+                    CLGeneralDelete(tmp);
+                    return false;
+                }
+
+            }
+            public bool Search(T data)  //D
+            {
+                var tmp = Head;         //A
+                while (tmp != null)
+                {
+                    if (Equals(tmp.Data, data))
+                    {
+                        return true;
+                    }
+                    tmp = tmp.Next;
+                }
+                return false;
+            }
+            public void SwapHeadAndTail()
+            {
+                var tempHead = Head.Data;
+                Head.Data = Tail.Data;
+                Tail.Data = tempHead;
+            }
+            public void MoveHeadToRight(int moves)
+            {
+
+                var tmp = Head;
+                int index = 0;
+                while (index != moves)
+                {
+                    tmp = tmp.Next;
+                    index++;
+                }
+                CLGeneralHeadSwap(tmp);
+            }
+            public void MoveHeadToLeft(int moves)
+            {
+                moves = moves * (-1);
+                if (moves > Count || moves < 0)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+
+                var tmp = Head;
+                var tmp2 = Head;
+                int index = 0;
+                while (index != moves)
+                {
+                    tmp = tmp.Next;
+                    index++;
+                }
+                CLGeneralHeadSwap(tmp);
+            }
+            public void MoveTailToRight(int moves)
+            {
+                moves = (moves + 1 - Count);
+                if (moves > Count || moves < 0)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+                var tmp = Head;
+                int index = 0;
+                while (index != moves)
+                {
+                    tmp = tmp.Next;
+                    index++;
+                }
+                CLGeneralTailSwap(tmp);
+
+            }
+            public void MoveTailToLeft(int moves)
+            {
+                int a = Count - moves;
+                moves = a;
+                if (moves > Count || moves < 0)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+                var tmp = Head;
+                int index = 0;
+                while (index != moves)
+                {
+                    tmp = tmp.Next;
+                    index++;
+                }
+                CLGeneralTailSwap(tmp);
+
+            }
+
+            public void Print()
+            {
+                var temp = Head;
+                while (temp != null)
+                {
+                    if (temp.Next == Head)
+                    {
+                        break;
+                    }
+                    Console.Write(" [" + temp.Data + "]");
+                    temp = temp.Next;
+                }
+                Console.WriteLine();
+            }
+            public void CLGeneralDelete(Node<T> node)
+            {
+                if (node == Head)
+                {
+                    DeleteFromHead();
+                    Count--;
+                }
+                else if (node == Tail)
+                {
+                    DeleteFromTail();
+                    Count--;
+                }
+                else
+                {
+                    var newprev = node.Prev;
+                    var newnext = node.Next;
+                    newprev.Next = node.Next;
+                    newnext.Prev = node.Prev;
+                    Count--;
+                }
+            }
+            public void CLGeneralHeadSwap(Node<T> node)
+            {
+                var tempHead = Head.Data;
+                Head.Data = node.Data;
+                node.Data = tempHead;
+            }
+            public void CLGeneralTailSwap(Node<T> node)
+            {
+                var tempTail = Tail.Data;
+                Tail.Data = node.Data;
+                node.Data = tempTail;
+            }
+        }
+        public class Node<T>
+        {
+            public T Data { get; set; }
+            public Node<T> Next { get; set; }
+            public Node<T> Prev { get; set; }
+            public Node()
+            {
+            }
+            public Node(T data)
+            {
+                Data = data;
+            }
+        }
+
+        public class Person : IComparable<Person>       //implement icomparable for sorter to find a way to compare dis
+        {
+            public string LastName { get; set; }
+            public string FirstName { get; set; }
+
+            public override string ToString()
+            {
+                //return String.Format(LastName +" "+  FirstName);
+                return LastName;
+            }
+
+            public Person(string lastName, string firstName)
+            {
+                LastName = lastName;
+                FirstName = firstName;
+
+            }
+
+            public int CompareTo(Person other)
+            {
+                //return String.Compare(LastName, other.LastName, StringComparison.Ordinal);
+                //return (String.Compare(LastName, other.LastName, StringComparison.Ordinal));
+                return LastName.CompareTo(other.LastName);
+            }
+        }
+
+        public static class PersonFactory
+        {
+            private static int _lastNameIndex = 1;
+            private static int _firstNameIndex = 1;
+            public static Person CreatePerson(string lastname, string firstname)
+            {
+                return new Person(lastname, firstname);
+            }
+
+            public static Person CreatePerson()
+            {
+                var lastname = "L" + _lastNameIndex++;
+                var firstname = "Person" + _firstNameIndex++;
+                return new Person(lastname, firstname);
+            }
+
+            public static Person CreatePerson(int INameChars, int fNameChars)
+            {
+                return new Person(GetName(INameChars), GetName(fNameChars));
+            }
+            private static Random _random = new Random();
+
+            private static string GetName(int characters)
+            {
+                var sb = new StringBuilder();
+                for (int i = 0; i < characters; i++)
+                {
+                    sb.Append((char)(_random.Next((int)'a', (int)'z' + 1)));
+                }
+                return sb.ToString();
+            }
+        }
+        public class LinkListSorter
+        {
+            public ILinkedList<T> SortAscending<T>(ILinkedList<T> linkedList, IComparer<T> comparer = null)
+
+            {
+                if (comparer == null) comparer = Comparer<T>.Default;
+                var unsortedListCount = linkedList.Count + 1;       //CODE IS HEALED BECAUSE OF MY COMPLICATED COUNTS, CANT READ FIRST ADD2HEAD
+
+                while (unsortedListCount > 0)
+                {
+                    //1. Get the smallest value from the linked list starting from head by comparing each node until the end of the list
+
+                    var tmp = linkedList.Head;
+                    var smallest = tmp;
+                    for (int i = 0; i < unsortedListCount; i++)
+                    {
+                        if (comparer.Compare(tmp.Data, smallest.Data) <= 0) //smallest <= tmp
+                        {
+                            smallest = tmp;
+                        }
+                        tmp = tmp.Next;
+                    }
+                    // 1. get the smallest index
+                    int smallestIndex = 0;
+                    tmp = linkedList.Head;
+                    while (tmp != smallest)
+                    {
+                        smallestIndex++;
+                        tmp = tmp.Next;
+                    }
+
+                    //2. move the smallest to head
+                    if (smallestIndex > 0)
+                    {
+                        for (int i = 0; i < smallestIndex; i++)
+                        {
+                            linkedList.MoveHeadToRight(unsortedListCount - 1);
+                        }
+                    }
+                    //3. add head to tail
+                    var head = linkedList.Head;
+                    linkedList.AddToTail(new Node<T>(head.Data));
+
+                    //4. Remove Head
+                    linkedList.DeleteFromHead();
+
+                    //5. Unsorted list becomes Count -1
+                    unsortedListCount--;
+                }
+                return linkedList;
+            }
+            public ILinkedList<T> SortDescending<T>(ILinkedList<T> linkedList, IComparer<T> comparer = null)
+            {
+                if (comparer == null) comparer = Comparer<T>.Default;
+
+                var unsortedListCount = linkedList.Count + 1;     //CODE IS HEALED +1 because it cant read the first thing i add to head
+
+                while (unsortedListCount > 0)  //CODE HEALED
+                {
+                    //1. Get the Biggest value from the linked list starting from head by comparing each node until the end of the list
+                    //   -1 = temp is less than smallest
+                    //   0 = temp is equal smallest
+                    //   1 = temp is bigger than smallest
+
+
+                    var temp = linkedList.Tail;
+                    var biggest = temp;
+                    for (int i = 0; i < unsortedListCount; i++)
+                    {
+                        if (comparer.Compare(temp.Data, biggest.Data) <= 0)
+                        {
+                            biggest = temp;
+                        }
+                        temp = temp.Prev;
+                    }
+                    // 1. get the biggest index
+                    int biggestIndex = 0;
+                    temp = linkedList.Tail;
+                    while (temp != biggest)
+                    {
+                        biggestIndex++;
+                        temp = temp.Prev;
+                    }
+                    //2. move the smallest to Tail
+                    if (biggestIndex > 0)
+                        for (int i = 0; i < biggestIndex; i++)
+                        {
+                            linkedList.MoveTailToLeft(unsortedListCount - 1);
+                        }
+                    //3. add tail to Head;
+                    var tail = linkedList.Tail;
+                    linkedList.AddToHead(new Node<T>(tail.Data));
+                    linkedList.DeleteFromTail();
+                    unsortedListCount--;
+                }
+                return linkedList;
+
+            }
+        }
+
+        public interface IStack<T>
+        {
+            T Peek();
+            T Pop();
+            void Push(T item);
+            void Clear();
+            bool IsEmpty { get; }   //property
+            int Count { get; }  //property
+            //exercise
+            void Print();
+        }
+        //july 13 2017
+        public class StackLinkedList<T> : IStack<T>
+        {
+            private ILinkedList<T> _lt = new DoublyLinkedList<T>();
+
+            public void Push(T item)
+            {
+                _lt.AddToHead(new Node<T>(item));
+            }
+
+            public void Clear()
+            {
+                _lt = new DoublyLinkedList<T>();
+            }
+
+            public T Peek()
+            {
+                if (IsEmpty) throw new InvalidOperationException("Stack is Empty");
+                return _lt.Head.Data;
+
+
+            }
+
+            public void Print()
+            {
+                while (_lt.Head != null)
+                {
+                    Console.WriteLine(_lt.DeleteFromHead());
+                }
+            }
+            public bool IsEmpty => _lt.Count == -1;      //shortcut for
+            public int Count => _lt.Count;
+            public T Pop()
+            {
+                if(IsEmpty) throw new InvalidOperationException("Stack is Empty");
+                return _lt.DeleteFromHead();
+            }
+
+
+        }
+        //WRONG DELIMETIER
+        public static bool DelimeterMatching(string word)
+        {
+            var temp = new StackLinkedList<char>();
+            foreach (char c in word)
+            {
+                if (c == '(' || c == '[' || c == '{')
+                {
+                    temp.Push(c);
+                }
+                else if (c == ')' || c == ']' || c == '}')
+                {
+                    if (temp.Pop() == '(' && c == ')')
+                    {
+                        return true;
+                    }
+                    if (temp.Pop() == '[' && c == ']')
+                    {
+                        return true;
+                    }
+                    if (temp.Pop() == '{' && c == '}')
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+
+            }
+            return temp.IsEmpty;
+        }
+    }
+}
